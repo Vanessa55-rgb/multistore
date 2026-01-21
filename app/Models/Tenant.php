@@ -19,6 +19,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'business_type',
             'is_active',
             'color',
+            'banner',
         ];
     }
 }

@@ -8,29 +8,29 @@
                     <div class="mb-5 text-center">
                         <div class="bg-dark bg-opacity-10 text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
                             style="width: 80px; height: 80px;">
-                            <i class="bi bi-shield-plus display-5 text-primary"></i>
+                            <i class="bi bi-shield-lock display-5 text-primary"></i>
                         </div>
-                        <h2 class="fw-bold">Nuevo <span class="text-primary">Admin Global</span></h2>
-                        <p class="text-secondary">Este usuario tendrá control total sobre la plataforma.</p>
+                        <h2 class="fw-bold">Editar <span class="text-primary">Admin Global</span></h2>
+                        <p class="text-secondary small">Actualiza los datos de <strong>{{ $admin->name }}</strong>.</p>
                     </div>
 
-                    <form action="{{ route('central.admins.store') }}" method="POST">
+                    <form action="{{ route('central.admins.update', $admin->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="mb-4">
                             <label class="form-label fw-bold">Nombre Completo</label>
-                            <input type="text" name="name" class="form-control rounded-pill px-4"
-                                placeholder="Ej: Administrador Maestro" required>
+                            <input type="text" name="name" class="form-control rounded-pill px-4" value="{{ $admin->name }}"
+                                required>
                         </div>
                         <div class="mb-4">
                             <label class="form-label fw-bold">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control rounded-pill px-4"
-                                placeholder="admin@multistore.com" required>
+                                value="{{ $admin->email }}" required>
                         </div>
                         <div class="mb-5">
-                            <label class="form-label fw-bold">Contraseña</label>
+                            <label class="form-label fw-bold">Nueva Contraseña (Opcional)</label>
                             <input type="password" name="password" class="form-control rounded-pill px-4"
-                                placeholder="••••••••" required>
-                            <small class="text-muted ms-3">Al menos 8 caracteres.</small>
+                                placeholder="Dejar en blanco para mantener actual">
                         </div>
 
                         <div class="d-flex gap-3">
@@ -38,7 +38,7 @@
                                 <i class="bi bi-save me-2"></i>Guardar Cambios
                             </button>
                             <a href="{{ route('central.admins.index') }}"
-                                class="btn btn-light btn-lg rounded-pill px-4 border">Cancelar</a>
+                                class="btn btn-light btn-lg rounded-pill px-4 border text-muted">Cancelar</a>
                         </div>
                     </form>
                 </div>

@@ -1,88 +1,91 @@
-# Multi-CRUDilino Store Platform
+# 🚀 MultiStore Hub - Panel de Control Centralizado
 
-A Multi-Tenant E-commerce Platform built with Laravel 10 and `stancl/tenancy`.
+MultiStore Hub es una plataforma SaaS multitenant construida con **Laravel 11** y **Stancl/Tenancy 3**, diseñada para gestionar múltiples tiendas independientes desde un único punto.
 
-## Features
+## 📋 Requisitos del Sistema
+- **PHP**: 8.3 o superior
+- **Node.js**: 18.x o superior
+- **Base de Datos**: MySQL / MariaDB
+- **Extensiones PHP**: `intl`, `bcmath`, `gd`, `zip`
 
-- **Central Domain (Admin Panel)**
-    - Manage Tenants (Create, Disable, Edit)
-    - Manage Central Administrators
-- **Tenant Domain (Storefront)**
-    - Isolated Inventory per Tenant
-    - Public Catalog / Landing Page
-    - Tenant Admin Panel for managing products
-- **Demo Tenants**
-    - Kitchen, Hardware, Jewelry, Gamer, Stationery
+## 🛠️ Guía de Ejecución
+Para iniciar el proyecto en tu entorno local, sigue estos pasos:
 
-## Installation
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/Vanessa55-rgb/multistore.git
-    cd multistore
-    ```
-
-2.  **Install Dependencies**
-    ```bash
-    composer install
-    npm install && npm run build
-    ```
-
-3.  **Configure Environment**
-    Copy `.env.example` to `.env`.
-    
-    **Database Name**: `multistore1`
-    
-    ```env
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=multistore1
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-
-4.  **Run Migrations**
-    ```bash
-    php artisan migrate
-    ```
-
-5.  **Setup Demo Data (Tenants & Products)**
-    ```bash
-    php artisan app:setup-demo
-    ```
-
-6.  **Serve Application**
-    ```bash
-    php artisan serve
-    ```
-
-## Accessing the Platform
-
-### Central Admin
-- **URL**: `http://localhost:8000/central/tenants`
-- Manage all stores from here.
-
-### Tenants
-You can access the tenants at subdomains (requires hosts file configuration or proper DNS):
-- **Kitchen Store**: `http://kitchen.localhost:8000`
-- **Hardware Store**: `http://hardware.localhost:8000`
-- **Jewelry Store**: `http://jewelry.localhost:8000`
-- **Gamer Store**: `http://gamer.localhost:8000`
-- **Stationery Store**: `http://stationery.localhost:8000`
-
-### Tenant Admin Login
-- **URL**: `http://<tenant>.localhost:8000/login`
-- **Email**: `admin@<tenant>.com` (e.g., `admin@kitchen.com`)
-- **Password**: `password`
-
-## Architecture
-- **Framework**: Laravel 10+
-- **Tenancy**: `stancl/tenancy` (Single Database / Separate Schemas or Multi-Database depending on config)
-- **Database**: mysql (`multistore1`)
-
-## Docker Support
-A `docker-compose.yml` is included for running with Laravel Sail.
+### 1. Preparación del Entorno
 ```bash
-./vendor/bin/sail up
+# Instalar dependencias de PHP
+composer install
+
+# Instalar dependencias de JS
+npm install
+
+# Copiar configuración de entorno
+cp .env.example .env
+
+DB_CONNECTION=mysql
+DB_HOST=168.119.183.3
+DB_PORT=3307
+DB_DATABASE=multistore1
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Generar clave de aplicación
+php artisan key:generate
 ```
+
+### 2. Base de Datos y Seeders
+```bash
+# Ejecutar migraciones (Central y Tenants)
+php artisan migrate --seed
+```
+
+### 3. Iniciar Servicios (Usar dos terminales)
+
+**Terminal 1: Frontend (Recursos en vivo)**
+```bash
+npm run dev
+```
+
+**Terminal 2: Backend (Servidor Web)**
+```bash
+php artisan serve
+```
+
+---
+
+## 🔗 Acceso y Credenciales
+
+### 1. Panel de Control Central (Super Admin)
+Gestiona todas las tiendas, dominios y administradores globales.
+- **URL**: [http://localhost:8000/central/login](http://localhost:8000/central/login)
+- **Usuario**: `admin@multistore.com`
+- **Contraseña**: `password`
+
+### 2. Tiendas (Tenants)
+Cada tienda tiene su propio subdominio y base de datos independiente.
+Recuerda usar **localhost:8000** en la URL.
+
+- **Tienda Cocina**: [http://cocina.localhost:8000](http://cocina.localhost:8000)
+- **Tienda Ferretería**: [http://ferreteria.localhost:8000](http://ferreteria.localhost:8000)
+- **Tienda Gamer**: [http://gamer.localhost:8000](http://gamer.localhost:8000)
+- **Tienda Joyería**: [http://joyeria.localhost:8000](http://joyeria.localhost:8000)
+- **Tienda Papelería**: [http://papeleria.localhost:8000](http://papeleria.localhost:8000)
+
+**Acceso Admin de Tienda:**
+- **URL**: Accede a la tienda deseada y ve a "Iniciar Sesión" en la parte superior derecha.
+- **Credenciales por Tienda**:
+  - **Cocina**: `admin@cocina.com`
+  - **Ferretería**: `admin@ferreteria.com`
+  - **Gamer**: `admin@gamer.com`
+  - **Joyería**: `admin@joyeria.com`
+  - **Papelería**: `admin@papeleria.com`
+- **Contraseña Única**: `password` (Para todas las tiendas).
+
+## 🚀 Características Implementadas
+- **Multi-Tenancy**: Aislamiento total de bases de datos y archivos por tienda.
+- **Gestión de Stock**: Inventario con carga de imágenes y previsualización en tiempo real.
+- **Ofertas Dinámicas**: Sistema de descuentos aplicado globalmente (15% OFF configurado).
+- **Diseño Glassmorphism**: Interfaz moderna y responsive para una experiencia premium.
+- **Subida de Archivos**: Optimizado para soportar imágenes locales y URLs externas.
+
+

@@ -8,13 +8,13 @@
                     <div class="text-center mb-5">
                         <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
                             style="width: 70px; height: 70px;">
-                            <i class="bi bi-person-lock fs-1"></i>
+                            <i class="bi bi-shield-lock-fill fs-1"></i>
                         </div>
-                        <h3 class="fw-bold">Acceso <span class="text-primary">Admin</span></h3>
-                        <p class="text-secondary">Panel de control de {{ tenant('name') }}</p>
+                        <h3 class="fw-bold">Panel <span class="text-primary">Central</span></h3>
+                        <p class="text-secondary">Administración Global de MultiStore</p>
                     </div>
 
-                    <form method="POST" action="{{ route('tenant.login.post') }}">
+                    <form method="POST" action="{{ route('login') }}">
 
                         @csrf
                         <div class="mb-4">
@@ -22,7 +22,7 @@
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0"><i class="bi bi-envelope"></i></span>
                                 <input type="email" name="email" class="form-control bg-light border-0"
-                                    placeholder="admin@tienda.com" required autofocus>
+                                    placeholder="admin@multistore.com" required autofocus>
                             </div>
                         </div>
                         <div class="mb-5">
@@ -36,15 +36,18 @@
 
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-lg shadow-sm">
-                                Iniciar Sesión <i class="bi bi-arrow-right ms-2"></i>
+                                Entrar al Sistema <i class="bi bi-box-arrow-in-right ms-2"></i>
                             </button>
-                            <div class="text-center mt-5">
-                                <a href="{{ route('tenant.catalog') }}" class="text-decoration-none text-muted small">
-                                    <i class="bi bi-arrow-left me-1"></i> Volver al Catálogo
-                                </a>
-                            </div>
                         </div>
+                    </form>
+
+                    <div class="text-center mt-5">
+                        <a href="{{ url('/') }}" class="text-decoration-none text-muted small">
+                            <i class="bi bi-arrow-left me-1"></i> Volver al Inicio
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection

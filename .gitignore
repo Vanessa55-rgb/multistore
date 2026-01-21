@@ -16,9 +16,20 @@
 /public/build
 /public/hot
 /public/storage
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+/storage/tenant*
+/vendor
 /storage/*.key
 /storage/pail
-/vendor
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Antigravity
+.gemini/
+*.ps1
+tenants.txt
+migrate_output.txt

@@ -34,7 +34,7 @@ class AdminController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('central.admins.index')->with('success', 'Admin created successfully');
+        return redirect()->route('central.admins.index')->with('success', 'Administrador creado correctamente.');
     }
 
     public function edit(User $admin)
@@ -61,15 +61,15 @@ class AdminController extends Controller
 
         $admin->update($data);
 
-        return redirect()->route('central.admins.index')->with('success', 'Admin updated successfully');
+        return redirect()->route('central.admins.index')->with('success', 'Administrador actualizado correctamente.');
     }
 
     public function destroy(User $admin)
     {
         if (auth()->id() == $admin->id) {
-            return back()->with('error', 'Cannot delete yourself');
+            return back()->with('error', 'No puedes eliminarte a ti mismo.');
         }
         $admin->delete();
-        return redirect()->route('central.admins.index')->with('success', 'Admin deleted successfully');
+        return redirect()->route('central.admins.index')->with('success', 'Administrador eliminado correctamente.');
     }
 }

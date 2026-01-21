@@ -42,36 +42,47 @@ class TenantController extends Controller
             'domain' => $validated['domain']
         ]);
 
-        return redirect()->route('central.tenants.index')->with('success', 'Tenant created successfully.');
+        return redirect()->route('central.tenants.index')->with('success', 'Tienda creada correctamente.');
     }
 
     public function edit(Tenant $tenant)
     {
+        $tenant->load('domains');
         return view('central.tenants.edit', compact('tenant'));
     }
 
     public function update(Request $request, Tenant $tenant)
     {
+        $domainId = $tenant->domains->first()?->id;
         $validated = $request->validate([
             'name' => 'required|string',
+            'domain' => 'required|string|unique:domains,domain' . ($domainId ? ',' . $domainId : ''),
             'business_type' => 'required|string',
             'color' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable',
         ]);
 
         $tenant->update([
+
             'name' => $validated['name'],
             'business_type' => $validated['business_type'],
             'color' => $validated['color'] ?? $tenant->color,
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->route('central.tenants.index')->with('success', 'Tenant updated successfully.');
+        if ($tenant->domains()->exists()) {
+            $tenant->domains()->first()->update(['domain' => $validated['domain']]);
+        } else {
+            $tenant->domains()->create(['domain' => $validated['domain']]);
+        }
+
+        return redirect()->route('central.tenants.index')->with('success', 'Tienda actualizada correctamente.');
     }
+
 
     public function destroy(Tenant $tenant)
     {
         $tenant->delete();
-        return redirect()->route('central.tenants.index')->with('success', 'Tenant deleted successfully.');
+        return redirect()->route('central.tenants.index')->with('success', 'Tienda eliminada correctamente.');
     }
 }
