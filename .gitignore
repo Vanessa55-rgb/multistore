@@ -21,7 +21,6 @@
 /storage/framework/testing/*
 /storage/framework/views/*
 /storage/logs/*
-/storage/tenant*
 /vendor
 /storage/*.key
 /storage/pail
